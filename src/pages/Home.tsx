@@ -3,36 +3,45 @@ import {Panel} from "../components/Panel.tsx";
 import {Button} from "../components/Button.tsx";
 export default function Home() {
     return (
-        <HomeGrid>
-            <Panel style={{ gridArea: 'identity' }} borderBottom>
-                <h1>Susana Taranco</h1>
-                <p>UI / Frontend Developer</p>
+        <Wrapper>
+            <Panel corners style={{ height: '100%' }}>
+                <HomeGrid>
+                    <Panel style={{ gridArea: 'identity' }}>
+                        <h1>Susana Taranco</h1>
+                        <p>UI / Frontend Developer</p>
+                    </Panel>
+
+                    <Panel style={{ gridArea: 'bio' }}>
+                            <p>Short test bio. See more →</p>
+                        </Panel>
+
+                        <Panel style={{ gridArea: 'projects' }} borderTop>
+                            <p>PROJECTS</p>
+                            <div style={{ display: 'flex', gap: '12px' }}>
+                                <Button to="/project/project-1">01</Button>
+                                <Button to="/project/project-2">02</Button>
+                                <Button to="/project/project-3">03</Button>
+                                <Button to="/project/project-4">04</Button>
+                                <Button to="/project/project-5">05</Button>
+                            </div>
+                        </Panel>
+
+                        <Panel style={{ gridArea: 'avatar' }} borderLeft />
+
+                </HomeGrid>
             </Panel>
-
-            <Panel style={{ gridArea: 'bio' }}>
-                    <p>Short test bio. See more →</p>
-                </Panel>
-
-                <Panel style={{ gridArea: 'projects' }} borderTop>
-                    <p>PROJECTS</p>
-                    <div style={{ display: 'flex', gap: '12px' }}>
-                        <Button to="/project/project-1">01</Button>
-                        <Button to="/project/project-2">02</Button>
-                        <Button to="/project/project-3">03</Button>
-                        <Button to="/project/project-4">04</Button>
-                        <Button to="/project/project-5">05</Button>
-                    </div>
-                </Panel>
-
-                <Panel style={{ gridArea: 'avatar' }} borderLeft />
-
-        </HomeGrid>
+        </Wrapper>
     )
 }
 
-const HomeGrid = styled.div`
+const Wrapper = styled.div`
     height: 100vh;
     overflow: hidden;
+    padding: ${({ theme }) => theme.spacing(8)};
+`
+
+const HomeGrid = styled.div`
+    height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto 1fr auto;
