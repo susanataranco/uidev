@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import {Panel} from "../components/Panel.tsx";
 import {Button} from "../components/Button.tsx";
-import Model from "../scene/3DModel.tsx";
+import {Character} from "../scene/Character.tsx";
+import {Canvas} from "@react-three/fiber";
 export default function Home() {
     return (
         <Wrapper>
@@ -28,7 +29,11 @@ export default function Home() {
                     </Section>
 
                     <Section style={{ gridArea: 'avatar' }} borderLeft>
-                        <Model />
+                        <Canvas camera={{ position: [0, 0, 8] }}>
+                            <ambientLight intensity={0.7} />
+                            <directionalLight position={[5, 5, 5]} intensity={1} />
+                            <Character action="Survey" />
+                        </Canvas>
                     </Section>
                 </HomeGrid>
             </Panel>
