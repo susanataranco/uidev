@@ -8,6 +8,7 @@ interface PanelProps {
     borderRight?: boolean
     corners?: boolean
     style?: CSSProperties
+    className?: string
     children?: ReactNode
 }
 
@@ -18,11 +19,13 @@ export function Panel({
                           borderRight,
                           corners,
                           style,
+                          className,
                           children,
                       }: PanelProps) {
     return (
         <StyledPanel
             style={style}
+            className={className}
             $borderTop={borderTop}
             $borderBottom={borderBottom}
             $borderLeft={borderLeft}

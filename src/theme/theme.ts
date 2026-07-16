@@ -14,6 +14,9 @@ export const theme = {
         body: '"Lekton", monospace',
     },
     spacing: (factor: number) => `${factor * 8}px`,
+    breakpoints: {
+        mobile: '768px',
+    },
 } as const
 
 export type Theme = typeof theme
