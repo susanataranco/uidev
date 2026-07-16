@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import {Panel} from "../components/Panel.tsx";
+import {Button} from "../components/Button.tsx";
 export default function Home() {
     return (
         <HomeGrid>
@@ -14,7 +15,13 @@ export default function Home() {
 
                 <Panel style={{ gridArea: 'projects' }} borderTop>
                     <p>PROJECTS</p>
-                    <p>[01] [02] [03] [04] [05]</p>
+                    <div style={{ display: 'flex', gap: '12px' }}>
+                        <Button to="/project/project-1">01</Button>
+                        <Button to="/project/project-2">02</Button>
+                        <Button to="/project/project-3">03</Button>
+                        <Button to="/project/project-4">04</Button>
+                        <Button to="/project/project-5">05</Button>
+                    </div>
                 </Panel>
 
                 <Panel style={{ gridArea: 'avatar' }} borderLeft />

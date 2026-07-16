@@ -17,7 +17,7 @@ export const router = createBrowserRouter([{
             element: <Bio/>,
         },
         {
-            path: '/proyect/:id',
+            path: '/project/:id',
             element: <ProjectDetail/>,
         },
     ]
