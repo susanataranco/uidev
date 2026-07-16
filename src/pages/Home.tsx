@@ -1,22 +1,24 @@
 import styled from 'styled-components'
+import {Panel} from "../components/Panel.tsx";
 export default function Home() {
     return (
         <HomeGrid>
-            <Identity>
+            <Panel style={{ gridArea: 'identity' }} borderBottom>
                 <h1>Susana Taranco</h1>
                 <p>UI / Frontend Developer</p>
-            </Identity>
+            </Panel>
 
-            <Bio>
-                <p>Short test bio. See more →</p>
-            </Bio>
+            <Panel style={{ gridArea: 'bio' }}>
+                    <p>Short test bio. See more →</p>
+                </Panel>
 
-            <Projects>
-                <p>PROJECTS</p>
-                <p>[01] [02] [03] [04] [05]</p>
-            </Projects>
+                <Panel style={{ gridArea: 'projects' }} borderTop>
+                    <p>PROJECTS</p>
+                    <p>[01] [02] [03] [04] [05]</p>
+                </Panel>
 
-            <AvatarSlot />
+                <Panel style={{ gridArea: 'avatar' }} borderLeft />
+
         </HomeGrid>
     )
 }
@@ -33,25 +35,4 @@ const HomeGrid = styled.div`
     'projects avatar';
     padding: 40px;
     gap: 24px;
-`
-
-const Identity = styled.div`
-  grid-area: identity;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
-  padding-bottom: 16px;
-`
-
-const Bio = styled.div`
-  grid-area: bio;
-`
-
-const Projects = styled.div`
-  grid-area: projects;
-  border-top: 1px solid ${({ theme }) => theme.colors.line};
-  padding-top: 16px;
-`
-
-const AvatarSlot = styled.div`
-  grid-area: avatar;
-  border-left: 1px solid ${({ theme }) => theme.colors.line};
 `
