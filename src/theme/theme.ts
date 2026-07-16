@@ -8,8 +8,8 @@ export const theme = {
         accent: '#5eead4',
     },
     font: {
-        heading: '"Bebas Neue", "Arial Narrow", sans-serif',
-        body: '"Inter", system-ui, sans-serif',
+        heading: '"Unbounded", sans-serif',
+        body: '"Lekton", monospace',
     },
     spacing: (factor: number) => `${factor * 8}px`,
 } as const

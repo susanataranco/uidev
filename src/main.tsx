@@ -6,6 +6,7 @@ import { theme } from './theme/theme'
 import { GlobalStyle } from './theme/GlobalStyle'
 import { router } from './routes'
 import './index.css'
+import './theme/fonts.ts'
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
