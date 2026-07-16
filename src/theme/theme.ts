@@ -4,6 +4,7 @@ export const theme = {
         surface: '#131822',
         line: '#2a3240',
         text: '#e4e8f0',
+        cursor: '#e4e8f0',
         textMuted: '#7a8496',
         accent: '#4fd1ff',
         accentDim: '#1c4a5c',

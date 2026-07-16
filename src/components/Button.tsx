@@ -10,7 +10,6 @@ export const Button = styled(Link)`
   color: ${({ theme }) => theme.colors.text};
   font-family: ${({ theme }) => theme.font.body};
   text-decoration: none;
-  cursor: pointer;
   transition: border-color 0.2s ease, color 0.2s ease;
 
   &:hover {
