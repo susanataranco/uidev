@@ -3,23 +3,36 @@ import {Panel} from "../components/Panel.tsx";
 import {Button} from "../components/Button.tsx";
 import {Character} from "../scene/Character.tsx";
 import {Canvas} from "@react-three/fiber";
+import {useState} from "react";
+
 export default function Home() {
+    const [characterAnimation, setCharacterAnimation] = useState<'None' | 'Survey' | 'Walk' | 'Run'>('Survey')
+
+    function handleAvatarHover(hovering: boolean) {
+        setCharacterAnimation(hovering ? 'Survey' : 'None')
+    }
+
+    function handleAvatarClick() {
+        setCharacterAnimation('Run')
+        setTimeout(() => setCharacterAnimation('None'), 1500)
+    }
+
     return (
         <Wrapper>
-            <Panel corners style={{ height: '100%' }}>
+            <Panel corners style={{height: '100%'}}>
                 <HomeGrid>
-                    <Section style={{ gridArea: 'identity' }}>
+                    <Section style={{gridArea: 'identity'}}>
                         <h1>Susana Taranco</h1>
                         <p>UI / Frontend Developer</p>
                     </Section>
 
-                    <Section style={{ gridArea: 'bio' }}>
+                    <Section style={{gridArea: 'bio'}}>
                         <p>Short test bio. See more →</p>
                     </Section>
 
-                    <Section style={{ gridArea: 'projects' }} borderTop>
+                    <Section style={{gridArea: 'projects'}} borderTop>
                         <p>PROJECTS</p>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                        <div style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
                             <Button to="/project/project-1">01</Button>
                             <Button to="/project/project-2">02</Button>
                             <Button to="/project/project-3">03</Button>
@@ -28,11 +41,14 @@ export default function Home() {
                         </div>
                     </Section>
 
-                    <Section style={{ gridArea: 'avatar' }} borderLeft>
-                        <Canvas camera={{ position: [0, 0, 8] }}>
-                            <ambientLight intensity={0.7} />
-                            <directionalLight position={[5, 5, 5]} intensity={1} />
-                            <Character action="Survey" />
+                    <Section style={{gridArea: 'avatar'}} borderLeft
+                             onMouseEnter={() => handleAvatarHover(true)}
+                             onMouseLeave={() => handleAvatarHover(false)}
+                             onClick={handleAvatarClick}>
+                        <Canvas camera={{position: [0, 0, 3]}}>
+                            <ambientLight intensity={0.7}/>
+                            <directionalLight position={[5, 5, 5]} intensity={1}/>
+                            <Character action={characterAnimation}/>
                         </Canvas>
                     </Section>
                 </HomeGrid>
@@ -44,9 +60,9 @@ export default function Home() {
 const Wrapper = styled.div`
     height: 100vh;
     overflow: hidden;
-    padding: ${({ theme }) => theme.spacing(8)};
+    padding: ${({theme}) => theme.spacing(8)};
 
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    @media (max-width: ${({theme}) => theme.breakpoints.mobile}) {
         padding: 0;
     }
 `
@@ -63,7 +79,7 @@ const HomeGrid = styled.div`
     padding: 40px;
     gap: 24px;
 
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    @media (max-width: ${({theme}) => theme.breakpoints.mobile}) {
         display: block;
         height: 100vh;
         overflow-y: auto;
@@ -79,13 +95,13 @@ const HomeGrid = styled.div`
 `
 
 const Section = styled(Panel)`
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    height: 100vh;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-sizing: border-box;
-  }
+    @media (max-width: ${({theme}) => theme.breakpoints.mobile}) {
+        height: 100vh;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-sizing: border-box;
+    }
 `

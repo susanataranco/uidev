@@ -1,15 +1,15 @@
-import { useEffect, useRef } from 'react'
-import { useGLTF, useAnimations, Center } from '@react-three/drei'
-import type { Group } from 'three'
+import {useEffect, useRef} from 'react'
+import {useGLTF, useAnimations, Center} from '@react-three/drei'
+import type {Group} from 'three'
 
 interface CharacterProps {
-    action: 'Survey' | 'Walk' | 'Run'
+    action: 'None' | 'Survey' | 'Walk' | 'Run'
 }
 
-export function Character({ action }: CharacterProps) {
+export function Character({action}: CharacterProps) {
     const group = useRef<Group>(null)
-    const { scene, animations } = useGLTF('/models/Fox.glb')
-    const { actions } = useAnimations(animations, group)
+    const {scene, animations} = useGLTF('/models/Fox.glb')
+    const {actions} = useAnimations(animations, group)
 
     useEffect(() => {
         const current = actions[action]
@@ -21,7 +21,7 @@ export function Character({ action }: CharacterProps) {
 
     return (
         <Center>
-            <primitive ref={group} object={scene} scale={0.02} />
+            <primitive ref={group} object={scene} scale={0.02}/>
         </Center>
     )
 }
