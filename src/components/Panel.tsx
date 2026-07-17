@@ -69,14 +69,14 @@ const CornerMark = styled.span<{ $pos: 'tl' | 'tr' | 'bl' | 'br' }>`
 
     ${({$pos, theme}) =>
             $pos === 'tl' &&
-            `top: -10px; left: -10px; border-bottom: 1px solid ${theme.colors.line}; border-right: 1px solid ${theme.colors.line};`}
+            `top: -10px; left: -10px; border-bottom: 1px solid ${theme.colors.frame}; border-right: 1px solid ${theme.colors.frame};`}
     ${({$pos, theme}) =>
             $pos === 'tr' &&
-            `top: -10px; right: -10px; border-bottom: 1px solid ${theme.colors.line}; border-left: 1px solid ${theme.colors.line};`}
+            `top: -10px; right: -10px; border-bottom: 1px solid ${theme.colors.frame}; border-left: 1px solid ${theme.colors.frame};`}
     ${({$pos, theme}) =>
             $pos === 'bl' &&
-            `bottom: -10px; left: -10px; border-top: 1px solid ${theme.colors.line}; border-right: 1px solid ${theme.colors.line};`}
+            `bottom: -10px; left: -10px; border-top: 1px solid ${theme.colors.frame}; border-right: 1px solid ${theme.colors.frame};`}
     ${({$pos, theme}) =>
             $pos === 'br' &&
-            `bottom: -10px; right: -10px; border-top: 1px solid ${theme.colors.line}; border-left: 1px solid ${theme.colors.line};`}
+            `bottom: -10px; right: -10px; border-top: 1px solid ${theme.colors.frame}; border-left: 1px solid ${theme.colors.frame};`}
 `

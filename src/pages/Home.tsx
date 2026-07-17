@@ -1,20 +1,18 @@
 import styled from 'styled-components'
 import {Panel} from "../components/Panel.tsx";
 import {Button} from "../components/Button.tsx";
-import {Character} from "../scene/Character.tsx";
-import {Canvas} from "@react-three/fiber";
-import {useState} from "react";
+import {useCharacterStore} from "../store/characterStore.ts";
 
 export default function Home() {
-    const [characterAnimation, setCharacterAnimation] = useState<'None' | 'Survey' | 'Walk' | 'Run'>('Survey')
+    const setAction = useCharacterStore((state) => state.setAction)
 
     function handleAvatarHover(hovering: boolean) {
-        setCharacterAnimation(hovering ? 'Survey' : 'None')
+        setAction(hovering ? 'Survey' : 'None')
     }
 
     function handleAvatarClick() {
-        setCharacterAnimation('Run')
-        setTimeout(() => setCharacterAnimation('None'), 1500)
+        setAction('Run')
+        setTimeout(() => setAction('None'), 1500)
     }
 
     return (
@@ -45,11 +43,7 @@ export default function Home() {
                              onMouseEnter={() => handleAvatarHover(true)}
                              onMouseLeave={() => handleAvatarHover(false)}
                              onClick={handleAvatarClick}>
-                        <Canvas camera={{position: [0, 0, 3]}}>
-                            <ambientLight intensity={0.7}/>
-                            <directionalLight position={[5, 5, 5]} intensity={1}/>
-                            <Character action={characterAnimation}/>
-                        </Canvas>
+
                     </Section>
                 </HomeGrid>
             </Panel>

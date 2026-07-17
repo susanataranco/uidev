@@ -3,6 +3,7 @@ export const theme = {
         background: '#0b0e14',
         surface: '#131822',
         line: '#2a3240',
+        frame: '#6c7387',
         text: '#e4e8f0',
         cursor: '#e4e8f0',
         textMuted: '#7a8496',
