@@ -1,7 +1,6 @@
 import {useEffect, useRef, useState} from 'react'
 import styled, {keyframes} from 'styled-components'
 import {useLocation} from 'react-router-dom'
-import {playHoverSound, playClickSound} from '../audio/sfx'
 
 export function Cursor() {
     const dotRef = useRef<HTMLDivElement>(null)
@@ -32,21 +31,19 @@ export function Cursor() {
             const target = e.target as HTMLElement
             if (target.closest('a, button, [data-cursor-hover]')) {
                 setHovering(true)
-                playHoverSound()
             }
         }
 
         function handleOut(e: MouseEvent) {
             const target = e.target as HTMLElement
             if (target.closest('a, button, [data-cursor-hover]')) {
-                setHovering(false)
+                setHovering(false);
             }
         }
 
         function handleClick(e: MouseEvent) {
             const id = `${Date.now()}-${Math.random()}`
             setRings((prev) => [...prev, {id, x: e.clientX, y: e.clientY}])
-            playClickSound()
         }
 
         window.addEventListener('mousemove', handleMove)

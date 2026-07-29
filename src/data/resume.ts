@@ -1,16 +1,23 @@
+export type TimelineEventType = 'work' | 'life' | 'milestone'
+
 export interface TimelineEntry {
     id: string
-    company: string
-    role: string
-    period: string
-    description: string[]
-    tech: string[]
+    year: number
+    type: TimelineEventType
+    label?: string // usado por eventos 'life' y 'milestone' (born, now...)
+    company?: string
+    role?: string
+    period?: string
+    description?: string[]
+    tech?: string[]
     url?: string
 }
 
 export const timeline: TimelineEntry[] = [
     {
         id: 'avalanche-ui',
+        year: 2025,
+        type: 'work',
         company: 'Avalanche Studios Group',
         role: 'UI Developer - Call of the Wild',
         period: 'Oct 2025 - Present',
@@ -21,6 +28,8 @@ export const timeline: TimelineEntry[] = [
     },
     {
         id: 'avalanche-frontend',
+        year: 2021,
+        type: 'work',
         company: 'Avalanche Studios Group',
         role: 'Frontend Developer - Apex Connect Team',
         period: 'Jun 2021 - Oct 2025',
@@ -31,6 +40,8 @@ export const timeline: TimelineEntry[] = [
     },
     {
         id: 'crowdfarming',
+        year: 2020,
+        type: 'work',
         company: 'CrowdFarming',
         role: 'Frontend Developer',
         period: 'May 2020 - Jun 2021',
@@ -41,6 +52,8 @@ export const timeline: TimelineEntry[] = [
     },
     {
         id: 'ryanair',
+        year: 2018,
+        type: 'work',
         company: 'Ryanair',
         role: 'UI Developer',
         period: 'Feb 2018 - May 2020',
@@ -51,6 +64,8 @@ export const timeline: TimelineEntry[] = [
     },
     {
         id: 'ea',
+        year: 2017,
+        type: 'work',
         company: 'Electronic Arts (EA)',
         role: 'UI Developer',
         period: 'Feb 2017 - Feb 2018',
@@ -61,6 +76,8 @@ export const timeline: TimelineEntry[] = [
     },
     {
         id: 'solcom',
+        year: 2014,
+        type: 'work',
         company: 'Solcom S.L.',
         role: 'UX/UI - Web Developer',
         period: 'Feb 2014 - Feb 2017',
@@ -69,7 +86,39 @@ export const timeline: TimelineEntry[] = [
         ],
         tech: ['AngularJS', 'jQuery', 'PHP'],
     },
+    {
+        id: 'telefonica',
+        year: 2013,
+        type: 'work',
+        company: 'Telefónica',
+        role: 'UX/UI - Web Developer',
+        period: 'Aug 2013 - Feb 2014',
+        description: [
+            'Telefonica Learning Services: Creation of an Spanish for foreign speakers E-learning project.',
+        ],
+        tech: ['Adobe Flash', 'HTML', 'CSS', 'Javascript'],
+    },
+    {
+        id: 'delvico',
+        year: 2012,
+        type: 'work',
+        company: 'J. Walter Thompson',
+        role: 'UX/UI - Web Developer',
+        period: 'Nov 2012 - Nov 2013',
+        description: [
+            'Digital Experience Department. Banners, Newsletters, Landing Pages and Images for Social Media.',
+        ],
+        tech: ['Adobe Flash', 'HTML', 'CSS', 'Javascript'],
+    },
+    {id: 'born', year: 1988, type: 'milestone', label: 'I was born'},
+    {id: 'bike', year: 1996, type: 'life', label: 'I learned to ride a bike'},
+    {id: 'longestjourney', year: 2001, type: 'life', label: 'I played The Longest Journey'},
+    {id: 'matrix', year: 1999, type: 'life', label: 'I saw The Matrix'},
+    {id: 'startuniversity', year: 2006, type: 'life', label: 'I started University'},
+    {id: 'birmingham', year: 2011, type: 'life', label: 'I moved to Birmingham'},
+    {id: 'now', year: 2026, type: 'milestone', label: 'Now is summer'},
 ]
+
 
 export interface Stat {
     value: string

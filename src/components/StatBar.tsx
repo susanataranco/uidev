@@ -11,11 +11,12 @@ const iconMap = {
 interface StatBarProps {
     stats: Stat[]
     variant?: 'bar' | 'compact'
+    className?: string
 }
 
-export function StatBar({stats, variant = 'bar'}: StatBarProps) {
+export function StatBar({stats, variant = 'bar', className}: StatBarProps) {
     return (
-        <Bar $variant={variant}>
+        <Bar $variant={variant} className={className}>
             {stats.map((stat) => (
                 <StatItem key={stat.label} $variant={variant}>
                     {stat.type === 'icons' && stat.icons ? (

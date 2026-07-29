@@ -1,52 +1,50 @@
 import styled from 'styled-components'
-import {Panel} from "../components/Panel.tsx";
 import {Button} from "../components/Button.tsx";
-import {useCharacterStore} from "../store/characterStore.ts";
+import {Link} from "../components/Link.tsx";
+import {Typoghraphy} from "../components/Typography.tsx";
 
 export default function Home() {
-    const setAction = useCharacterStore((state) => state.setAction)
-
-    function handleAvatarHover(hovering: boolean) {
-        setAction(hovering ? 'Survey' : 'None')
-    }
-
-    function handleAvatarClick() {
-        setAction('Run')
-        setTimeout(() => setAction('None'), 1500)
-    }
 
     return (
         <Wrapper>
-            <Panel corners style={{height: '100%'}}>
-                <HomeGrid>
-                    <Section style={{gridArea: 'identity'}}>
-                        <h1>Susana Taranco</h1>
-                        <p>UI / Frontend Developer</p>
-                    </Section>
+            <HomeGrid>
+                <Section style={{gridArea: 'identity'}}>
+                    <Typoghraphy variant="heading" size="large" className="uppercase p-none m-none">Susana
+                        Taranco</Typoghraphy>
 
-                    <Section style={{gridArea: 'bio'}}>
-                        <p>Short test bio. See more →</p>
-                    </Section>
+                    <div>
+                        <Typoghraphy variant="body" size="large" className="uppercase p-none m-none">UI / Frontend
+                            Developer</Typoghraphy>
+                        <Typoghraphy variant="body" size="medium" className="uppercase p-none m-none">Coherent GT,
+                            React,
+                            Typescript</Typoghraphy>
+                    </div>
+                </Section>
 
-                    <Section style={{gridArea: 'projects'}} borderTop>
-                        <p>PROJECTS</p>
-                        <div style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
-                            <Button to="/project/project-1">01</Button>
-                            <Button to="/project/project-2">02</Button>
-                            <Button to="/project/project-3">03</Button>
-                            <Button to="/project/project-4">04</Button>
-                            <Button to="/project/project-5">05</Button>
-                        </div>
-                    </Section>
+                <Section style={{gridArea: 'bio'}} className="pt-l pb-l">
+                    <Typoghraphy variant="body" size="medium" className="p-none m-none">12+ years building interfaces
+                        for AAA games and web
+                        products. Focused on performance and fluid experiences.</Typoghraphy>
+                    <div className="flex justify-end">
+                        <Link to="/bio">See more →</Link>
+                    </div>
+                </Section>
 
-                    <Section style={{gridArea: 'avatar'}} borderLeft
-                             onMouseEnter={() => handleAvatarHover(true)}
-                             onMouseLeave={() => handleAvatarHover(false)}
-                             onClick={handleAvatarClick}>
+                <Section style={{gridArea: 'projects'}}>
+                    <Typoghraphy variant="heading" size="small" className="uppercase">Projects</Typoghraphy>
+                    <div style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
+                        <Button to="/project/project-1">Project #01</Button>
+                        <Button to="/project/project-2">Project #02</Button>
+                        <Button to="/project/project-3">Project #03</Button>
+                        <Button to="/project/project-4">Project #04</Button>
+                        <Button to="/project/project-5">Project #05</Button>
+                    </div>
+                </Section>
 
-                    </Section>
-                </HomeGrid>
-            </Panel>
+                <Section style={{gridArea: 'avatar'}}>
+
+                </Section>
+            </HomeGrid>
         </Wrapper>
     )
 }
@@ -79,7 +77,6 @@ const HomeGrid = styled.div`
         overflow-y: auto;
         scroll-snap-type: y mandatory;
         padding: 0;
-        /* oculta la barra de scroll visualmente */
         scrollbar-width: none;
         -ms-overflow-style: none;
         &::-webkit-scrollbar {
@@ -88,7 +85,7 @@ const HomeGrid = styled.div`
     }
 `
 
-const Section = styled(Panel)`
+const Section = styled.div`
     @media (max-width: ${({theme}) => theme.breakpoints.mobile}) {
         height: 100vh;
         scroll-snap-align: start;

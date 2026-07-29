@@ -1,82 +1,93 @@
-import styled from 'styled-components'
-import type {ComponentPropsWithoutRef} from 'react'
+import {useEffect} from "react";
+import styled from "styled-components";
+import type {ReactNode} from "react";
 
-interface OwnProps {
-    borderTop?: boolean
-    borderBottom?: boolean
-    borderLeft?: boolean
-    borderRight?: boolean
-    corners?: boolean
+type PanelDirection = "left" | "right" | "top" | "bottom"
+
+interface PanelProps {
+    isOpen: boolean
+    onClose: () => void
+    direction?: PanelDirection
+    size?: string
+    children: ReactNode
 }
 
-type PanelProps = OwnProps & ComponentPropsWithoutRef<'div'>
-
 export function Panel({
-                          borderTop,
-                          borderBottom,
-                          borderLeft,
-                          borderRight,
-                          corners,
+                          isOpen,
+                          onClose,
+                          direction = "right",
+                          size = "360px",
                           children,
-                          ...rest
                       }: PanelProps) {
+    useEffect(() => {
+        if (!isOpen) return
+
+        function handleKeyDown(e: KeyboardEvent) {
+            if (e.key === "Escape") onClose()
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+        return () => window.removeEventListener("keydown", handleKeyDown)
+    }, [isOpen, onClose])
+
     return (
-        <StyledPanel
-            $borderTop={borderTop}
-            $borderBottom={borderBottom}
-            $borderLeft={borderLeft}
-            $borderRight={borderRight}
-            {...rest}
-        >
-            {corners && (
-                <>
-                    <CornerMark $pos="tl"/>
-                    <CornerMark $pos="tr"/>
-                    <CornerMark $pos="bl"/>
-                    <CornerMark $pos="br"/>
-                </>
-            )}
-            {children}
-        </StyledPanel>
+        <>
+            <Overlay $visible={isOpen} onClick={onClose} aria-hidden="true"/>
+            <PanelSurface
+                $direction={direction}
+                $size={size}
+                $open={isOpen}
+                role="dialog"
+                aria-modal="true"
+            >
+                {children}
+            </PanelSurface>
+        </>
     )
 }
 
-interface StyledPanelProps {
-    $borderTop?: boolean
-    $borderBottom?: boolean
-    $borderLeft?: boolean
-    $borderRight?: boolean
+function getClosedTransform(direction: PanelDirection) {
+    switch (direction) {
+        case "left":
+            return "translateX(-100%)"
+        case "right":
+            return "translateX(100%)"
+        case "top":
+            return "translateY(-100%)"
+        case "bottom":
+            return "translateY(100%)"
+    }
 }
 
-const StyledPanel = styled.div<StyledPanelProps>`
-    position: relative;
-    border-top: ${({theme, $borderTop}) =>
-            $borderTop ? `1px solid ${theme.colors.line}` : 'none'};
-    border-bottom: ${({theme, $borderBottom}) =>
-            $borderBottom ? `1px solid ${theme.colors.line}` : 'none'};
-    border-left: ${({theme, $borderLeft}) =>
-            $borderLeft ? `1px solid ${theme.colors.line}` : 'none'};
-    border-right: ${({theme, $borderRight}) =>
-            $borderRight ? `1px solid ${theme.colors.line}` : 'none'};
-    padding: ${({theme}) => theme.spacing(2)};
-`
+function getPositionStyles(direction: PanelDirection, size: string) {
+    switch (direction) {
+        case "left":
+            return `top: 0; left: 0; bottom: 0; width: ${size};`
+        case "right":
+            return `top: 0; right: 0; bottom: 0; width: ${size};`
+        case "top":
+            return `top: 0; left: 0; right: 0; height: ${size};`
+        case "bottom":
+            return `bottom: 0; left: 0; right: 0; height: ${size};`
+    }
+}
 
-const CornerMark = styled.span<{ $pos: 'tl' | 'tr' | 'bl' | 'br' }>`
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    pointer-events: none;
+const Overlay = styled.div<{ $visible: boolean }>`
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 20;
+    opacity: ${({$visible}) => $visible ? 1 : 0};
+    pointer-events: ${({$visible}) => $visible ? "auto" : "none"};
+    transition: opacity 0.25s ease;
+`;
 
-    ${({$pos, theme}) =>
-            $pos === 'tl' &&
-            `top: -10px; left: -10px; border-bottom: 1px solid ${theme.colors.frame}; border-right: 1px solid ${theme.colors.frame};`}
-    ${({$pos, theme}) =>
-            $pos === 'tr' &&
-            `top: -10px; right: -10px; border-bottom: 1px solid ${theme.colors.frame}; border-left: 1px solid ${theme.colors.frame};`}
-    ${({$pos, theme}) =>
-            $pos === 'bl' &&
-            `bottom: -10px; left: -10px; border-top: 1px solid ${theme.colors.frame}; border-right: 1px solid ${theme.colors.frame};`}
-    ${({$pos, theme}) =>
-            $pos === 'br' &&
-            `bottom: -10px; right: -10px; border-top: 1px solid ${theme.colors.frame}; border-left: 1px solid ${theme.colors.frame};`}
-`
+const PanelSurface = styled.div<{ $direction: PanelDirection; $size: string; $open: boolean }>`
+    position: fixed;
+    z-index: 21;
+    background: ${({theme}) => theme.colors.background};
+    overflow-y: auto;
+    ${({$direction, $size}) => getPositionStyles($direction, $size)};
+    transform: ${({$open, $direction}) => $open ? "translate(0, 0)" : getClosedTransform($direction)};
+    transition: transform 0.3s ease;
+`;
