@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {ActionButton} from "./ActionButton";
+import {Button} from "../../../components/Button.tsx";
 import {HiMiniMagnifyingGlassPlus, HiMiniMagnifyingGlassMinus} from "react-icons/hi2";
 
 interface ZoomControlsProps {
@@ -11,15 +11,15 @@ interface ZoomControlsProps {
 export function ZoomControls({onZoomIn, onZoomOut, onReset}: ZoomControlsProps) {
     return (
         <Wrapper>
-            <ActionButton onClick={onZoomOut} aria-label="Zoom out">
+            <Button onClick={onZoomOut} aria-label="Zoom out">
                 <HiMiniMagnifyingGlassMinus size={16}/>
-            </ActionButton>
-            <ActionButton onClick={onReset} aria-label="Reset view">
+            </Button>
+            <Button onClick={onReset} aria-label="Reset view">
                 reset
-            </ActionButton>
-            <ActionButton onClick={onZoomIn} aria-label="Zoom in">
+            </Button>
+            <Button onClick={onZoomIn} aria-label="Zoom in">
                 <HiMiniMagnifyingGlassPlus size={16}/>
-            </ActionButton>
+            </Button>
         </Wrapper>
     )
 }

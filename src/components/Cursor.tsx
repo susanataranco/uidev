@@ -99,7 +99,7 @@ const Dot = styled.div<{ $hovering: boolean }>`
     width: ${({$hovering}) => ($hovering ? '16px' : '6px')};
     height: ${({$hovering}) => ($hovering ? '16px' : '6px')};
     border-radius: 50%;
-    background: ${({theme}) => theme.colors.cursor};
+    background: ${({theme}) => theme.colors.ui.cursor};
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
@@ -113,7 +113,7 @@ const Ring = styled.div`
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    border: 1px solid ${({theme}) => theme.colors.cursor};
+    border: 1px solid ${({theme}) => theme.colors.ui.cursor};
     pointer-events: none;
     z-index: 9998;
     transform: translate(-50%, -50%);
@@ -124,7 +124,7 @@ const ClickRing = styled.div`
     top: 0;
     left: 0;
     border-radius: 50%;
-    border: 1px solid ${({theme}) => theme.colors.cursor};
+    border: 1px solid ${({theme}) => theme.colors.ui.cursor};
     pointer-events: none;
     z-index: 9997;
     transform: translate(-50%, -50%);

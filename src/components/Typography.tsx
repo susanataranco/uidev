@@ -2,48 +2,59 @@ import {type ElementType, type ReactNode, type HTMLAttributes, createElement} fr
 import {theme} from "../theme/theme";
 
 type Variant = "heading" | "body";
-type Size = "extrasmall" | "small" | "medium" | "large";
+
+type Size =
+    | "xs"
+    | "sm"
+    | "md"
+    | "lg"
+    | "xl"
+    | "xxl";
+
+type Weight =
+    | "regular"
+    | "medium"
+    | "semibold"
+    | "bold"
+    | "black";
 
 interface TypographyProps extends HTMLAttributes<HTMLElement> {
-    variant: Variant;
+    variant?: Variant;
     size?: Size;
+    weight?: Weight;
     color?: string;
     as?: ElementType;
     children: ReactNode;
 }
 
-const TAG_MAP: Record<Variant, Record<Size, ElementType>> = {
-    heading: {small: "h4", medium: "h2", large: "h1"},
-    body: {extrasmall: "p", small: "p", medium: "p", large: "p"},
-};
+const TAG_MAP = {
+    heading: "h2",
+    body: "p",
+} satisfies Record<Variant, ElementType>;
 
-const SIZE_CLASS: Record<Variant, Record<Size, string>> = {
-    heading: {small: "text-lg", medium: "text-2xl", large: "text-4xl"},
-    body: {extrasmall: "text-xs", small: "text-sm", medium: "text-base", large: "text-lg"},
-
-};
-
-export function Typoghraphy({
-                                variant,
-                                size = "medium",
-                                color,
-                                as,
-                                children,
-                                className = "",
-                                style,
-                                ...rest
-                            }: TypographyProps) {
-    const Tag = as ?? TAG_MAP[variant][size];
+export function Typography({
+                               variant = "body",
+                               size = "md",
+                               weight = "regular",
+                               color,
+                               as,
+                               children,
+                               className = "",
+                               style,
+                               ...rest
+                           }: TypographyProps) {
+    const Tag = as ?? TAG_MAP[variant];
 
     return createElement(
         Tag,
         {
-            className: `${SIZE_CLASS[variant][size]} ${className}`,
+            className,
             style: {
-                color, fontFamily: theme.font.family[variant],
-                fontSize: theme.font[variant][size].fontSize,
-                lineHeight: theme.font[variant][size].lineHeight,
-                fontWeight: theme.font[variant][size].fontWeight, ...style
+                color,
+                fontFamily: theme.fonts.family[variant],
+                fontSize: theme.fonts.size[size],
+                fontWeight: theme.fonts.weight[weight],
+                lineHeight: theme.fonts.lineHeight.relaxed, ...style
             },
             ...rest,
         },

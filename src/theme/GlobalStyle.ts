@@ -4,9 +4,9 @@ import {spacingUtilities} from "./spacingUtilities";
 
 export const GlobalStyle = createGlobalStyle`
     body {
-        background: ${({theme}) => theme.colors.background};
-        color: ${({theme}) => theme.colors.text};
-        font-family: ${({theme}) => theme.font.family.body};
+        background: ${({theme}) => theme.colors.ui.background};
+        color: ${({theme}) => theme.colors.ui.text};
+        font-family: ${({theme}) => theme.fonts.family.body};
         cursor: none;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;

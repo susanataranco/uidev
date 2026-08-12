@@ -1,16 +1,17 @@
 import styled from 'styled-components'
-import {StatBar} from '../components/StatBar'
-import {Timeline} from '../components/Timeline'
-import {timeline, stats, type TimelineEntry} from '../data/resume'
-import {Typoghraphy} from "../components/Typography.tsx";
+import {InfoBlock} from './components/InfoBlock.tsx'
+import {Timeline} from './components/Timeline.tsx'
+import {timeline, stats, type TimelineEntry} from '../../data/resume.ts'
+import {Typography} from "../../components/Typography.tsx";
 import {useState} from "react";
-import {Button} from "../components/Button.tsx";
 import {IoArrowBack} from "react-icons/io5";
-import {Panel} from "../components/Panel.tsx";
+import {Panel} from "../../components/Panel.tsx";
+import {Link} from "../../components/Link.tsx";
 
 export default function Bio() {
     const [immersive, setImmersive] = useState(false)
-    const [selectedEntry, setSelectedEntry] = useState(null)
+    const [selectedEntry, setSelectedEntry] = useState<TimelineEntry | null>(null);
+
     const handleOpenInfoPanel = (entry: TimelineEntry) => {
         setSelectedEntry(entry)
     }
@@ -23,25 +24,25 @@ export default function Bio() {
         <PageLayout $immersive={immersive}>
             <Grid $immersive={immersive}>
                 <LeftColumn $floating={immersive}>
-                    <Button to="/" className={immersive ? "relative" : "absolute"}>
+                    <Link to="/" className={immersive ? "relative" : "absolute"}>
                         <IoArrowBack size={20}/>
-                    </Button>
+                    </Link>
 
                     <div className="flex flex-column justify-center h-100">
                         <div>
-                            <Typoghraphy variant="heading" size="medium" className="uppercase p-none m-none">Susana
-                                Taranco</Typoghraphy>
-                            <Typoghraphy variant="body" size="medium" className="uppercase p-none m-none">UI/Frontend
-                                Developer</Typoghraphy>
+                            <Typography variant="heading" size="md" className="uppercase p-none m-none">Susana
+                                Taranco</Typography>
+                            <Typography variant="body" size="md" className="uppercase p-none m-none">UI/Frontend
+                                Developer</Typography>
                         </div>
 
-                        <StatBar stats={stats} variant="compact" className="mt-l"/>
+                        <InfoBlock stats={stats} immersiveMode={immersive} className="mt-l"/>
                     </div>
                 </LeftColumn>
 
                 <RightColumn>
                     {!immersive && (
-                        <Typoghraphy variant="heading" size="small" className="uppercase">Experience</Typoghraphy>
+                        <Typography variant="heading" size="sm" className="uppercase">Experience</Typography>
                     )}
                     <Timeline entries={timeline} onEntrySelect={(entry) => handleOpenInfoPanel(entry)}
                               immersive={immersive} onImmersiveToggle={() => setImmersive((current) => !current)}/>
@@ -51,16 +52,16 @@ export default function Bio() {
             <Panel isOpen={selectedEntry !== null} onClose={handleCloseInfoPanel} direction="right" size="400px">
                 {selectedEntry && (
                     <div className="p-m">
-                        <Typoghraphy variant="heading"
-                                     size="medium"
-                                     className="p-none m-none">{selectedEntry.company ?? selectedEntry.label}</Typoghraphy>
+                        <Typography variant="heading"
+                                    size="sm"
+                                    className="p-none m-none">{selectedEntry.company ?? selectedEntry.label}</Typography>
 
-                        <Typoghraphy variant="body"
-                                     size="small"
-                                     className="p-none m-none">{selectedEntry.period ?? selectedEntry.year}</Typoghraphy>
+                        <Typography variant="body"
+                                    size="sm"
+                                    className="p-none m-none">{selectedEntry.period ?? selectedEntry.year}</Typography>
 
-                        <Typoghraphy variant="heading"
-                                     size="small">{selectedEntry.role}</Typoghraphy>
+                        <Typography variant="heading"
+                                    size="sm">{selectedEntry.role}</Typography>
 
                         {selectedEntry.description?.map((line: string, i: number) => <p className="p-b-xs"
                                                                                         key={i}>{line}</p>)}
@@ -91,7 +92,7 @@ const Grid = styled.div<{ $immersive: boolean }>`
 
 const LeftColumn = styled.div<{ $floating: boolean }>`
     padding: ${({theme}) => theme.spacing(4)};
-    border-right: ${({theme, $floating}) => $floating ? "none" : `1px solid ${theme.colors.line}`};
+    border-right: ${({theme, $floating}) => $floating ? "none" : `1px solid ${theme.colors.ui.line}`};
     display: flex;
     flex-direction: column;
     gap: ${({theme}) => theme.spacing(3)};
@@ -103,9 +104,9 @@ const LeftColumn = styled.div<{ $floating: boolean }>`
         top: ${theme.spacing(3)};
         left: ${theme.spacing(3)};
         z-index: 10;
-        width: 280px;
-        border: 1px solid ${theme.colors.line};
-        background: ${theme.colors.background};
+        width: 320px;
+        border: 1px solid ${theme.colors.ui.line};
+        background: ${theme.colors.ui.background};
         justify-content: flex-start;
     `}
 `

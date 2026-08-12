@@ -85,7 +85,7 @@ const Overlay = styled.div<{ $visible: boolean }>`
 const PanelSurface = styled.div<{ $direction: PanelDirection; $size: string; $open: boolean }>`
     position: fixed;
     z-index: 21;
-    background: ${({theme}) => theme.colors.background};
+    background: ${({theme}) => theme.colors.ui.background};
     overflow-y: auto;
     ${({$direction, $size}) => getPositionStyles($direction, $size)};
     transform: ${({$open, $direction}) => $open ? "translate(0, 0)" : getClosedTransform($direction)};

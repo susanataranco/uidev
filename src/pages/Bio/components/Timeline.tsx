@@ -1,13 +1,13 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import styled from "styled-components";
-import type {TimelineEntry} from "../data/resume.ts";
-import {Typoghraphy} from "./Typography.tsx";
-import {Dot} from "./Dot.tsx";
+import type {TimelineEntry} from "../../../data/resume.ts";
+import {Typography} from "../../../components/Typography.tsx";
+import {Dot} from "../../../components/Dot.tsx";
 import {GiExpand} from "react-icons/gi";
 import {BiCollapseAlt} from "react-icons/bi";
-import {BoolButton} from "./BoolButton.tsx";
+import {BoolButton} from "../../../components/BoolButton.tsx";
 import {ZoomControls} from "./ZoomControls.tsx";
-import {ActionButton} from "./ActionButton.tsx";
+import {Button} from "../../../components/Button.tsx";
 
 const PAD_YEARS = 1.4
 const MIN_ZOOM = 1
@@ -352,13 +352,12 @@ export function Timeline({
             />
 
             {onImmersiveToggle && (
-                <BoolButton
-                    active={immersive}
+                <Button
                     onClick={onImmersiveToggle}
                     aria-label={immersive ? "Exit immersive view" : "Immersive view"}
                 >
                     {immersive ? <BiCollapseAlt size={16}/> : <GiExpand size={16}/>}
-                </BoolButton>
+                </Button>
             )}
         </>
     );
@@ -389,25 +388,25 @@ export function Timeline({
                                     key={entry.id}
                                     style={{left: screenX(entry.year)}}
                                 >
-                                    <Typoghraphy variant="body" size="medium" className="p-none m-none">
+                                    <Typography variant="body" size="md" className="p-none m-none">
                                         {entry.year}
-                                    </Typoghraphy>
+                                    </Typography>
                                     <Dot size="small"/>
                                     <TimelineStem style={{height: stemHeight}}/>
                                     <TimelineBox $detail={detailVisible}>
-                                        <Typoghraphy variant="body" size="small" className="p-none m-none">
+                                        <Typography variant="body" size="sm" className="p-none m-none">
                                             {entry.company ?? entry.label}
-                                        </Typoghraphy>
+                                        </Typography>
 
                                         {detailVisible && entry.role && (
-                                            <Typoghraphy variant="body" size="extrasmall" className="p-none m-none">
+                                            <Typography variant="body" size="xs" className="p-none m-none">
                                                 {entry.role}
-                                            </Typoghraphy>
+                                            </Typography>
                                         )}
 
                                         {detailVisible && onEntrySelect && entry.type === "work" && (
-                                            <ActionButton variant="text" onClick={() => onEntrySelect(entry)}>See more
-                                                →</ActionButton>
+                                            <Button variant="text" onClick={() => onEntrySelect(entry)}>See more
+                                                →</Button>
 
                                         )}
                                     </TimelineBox>
@@ -454,7 +453,7 @@ const TimelineContainer = styled.div<{ $immersive: boolean }>`
 
 const TimelineStem = styled.span`
     width: 1.5px;
-    background: ${({theme}) => theme.colors.line};
+    background: ${({theme}) => theme.colors.ui.line};
     flex-shrink: 0;
 `;
 
@@ -495,7 +494,7 @@ const ControlsBar = styled.div<{ $immersive: boolean }>`
         right: ${theme.spacing(3)};
         z-index: 10;
         padding: ${theme.spacing(2)};
-        background: ${theme.colors.background};
-        border: 1px solid ${theme.colors.line};
+        background: ${theme.colors.ui.background};
+        border: 1px solid ${theme.colors.ui.line};
     `}
 `;

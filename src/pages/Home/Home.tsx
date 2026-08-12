@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import {Button} from "../components/Button.tsx";
-import {Link} from "../components/Link.tsx";
-import {Typoghraphy} from "../components/Typography.tsx";
+import {Link} from "../../components/Link.tsx";
+import {Typography} from "../../components/Typography.tsx";
+import {Hud} from "./components/Hud.tsx";
 
 export default function Home() {
 
@@ -9,40 +9,40 @@ export default function Home() {
         <Wrapper>
             <HomeGrid>
                 <Section style={{gridArea: 'identity'}}>
-                    <Typoghraphy variant="heading" size="large" className="uppercase p-none m-none">Susana
-                        Taranco</Typoghraphy>
+                    <Typography variant="heading" size="lg" className="uppercase p-none m-none">Susana
+                        Taranco</Typography>
 
                     <div>
-                        <Typoghraphy variant="body" size="large" className="uppercase p-none m-none">UI / Frontend
-                            Developer</Typoghraphy>
-                        <Typoghraphy variant="body" size="medium" className="uppercase p-none m-none">Coherent GT,
+                        <Typography variant="body" size="lg" className="uppercase p-none m-none">UI / Frontend
+                            Developer</Typography>
+                        <Typography variant="body" size="md" className="uppercase p-none m-none">Coherent GT,
                             React,
-                            Typescript</Typoghraphy>
+                            Typescript</Typography>
                     </div>
                 </Section>
 
                 <Section style={{gridArea: 'bio'}} className="pt-l pb-l">
-                    <Typoghraphy variant="body" size="medium" className="p-none m-none">12+ years building interfaces
+                    <Typography variant="body" size="md" className="p-none m-none">12+ years building interfaces
                         for AAA games and web
-                        products. Focused on performance and fluid experiences.</Typoghraphy>
+                        products. Focused on performance and fluid experiences.</Typography>
                     <div className="flex justify-end">
                         <Link to="/bio">See more →</Link>
                     </div>
                 </Section>
 
                 <Section style={{gridArea: 'projects'}}>
-                    <Typoghraphy variant="heading" size="small" className="uppercase">Projects</Typoghraphy>
+                    <Typography variant="heading" size="sm" className="uppercase">Projects</Typography>
                     <div style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
-                        <Button to="/project/project-1">Project #01</Button>
-                        <Button to="/project/project-2">Project #02</Button>
-                        <Button to="/project/project-3">Project #03</Button>
-                        <Button to="/project/project-4">Project #04</Button>
-                        <Button to="/project/project-5">Project #05</Button>
+                        <Link to="/project/project-1" variant="button">Project #01</Link>
+                        <Link to="/project/project-2" variant="button">Project #02</Link>
+                        <Link to="/project/project-3" variant="button">Project #03</Link>
+                        <Link to="/project/project-4" variant="button">Project #04</Link>
+                        <Link to="/project/project-5" variant="button">Project #05</Link>
                     </div>
                 </Section>
 
-                <Section style={{gridArea: 'avatar'}}>
-
+                <Section style={{gridArea: 'hud'}}>
+                    <Hud/>
                 </Section>
             </HomeGrid>
         </Wrapper>
@@ -65,9 +65,9 @@ const HomeGrid = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto 1fr auto;
     grid-template-areas:
-    'identity avatar'
-    'bio      avatar'
-    'projects avatar';
+    'identity hud'
+    'bio      hud'
+    'projects hud';
     padding: 40px;
     gap: 24px;
 

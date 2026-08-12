@@ -20,7 +20,7 @@ const Wrapper = styled.div`
     height: 100vh;
     z-index: -1;
     overflow: hidden;
-    background: ${({theme}) => theme.colors.background};
+    background: ${({theme}) => theme.colors.ui.background};
 
     @keyframes move {
         100% {
