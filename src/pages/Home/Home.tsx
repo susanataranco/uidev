@@ -22,9 +22,8 @@ export default function Home() {
                 </Section>
 
                 <Section style={{gridArea: 'bio'}} className="pt-l pb-l">
-                    <Typography variant="body" size="md" className="p-none m-none">12+ years building interfaces
-                        for AAA games and web
-                        products. Focused on performance and fluid experiences.</Typography>
+                    <Typography variant="body" size="md" className="p-none m-none">12+ years building interfaces for AAA
+                        games and web products. Focused on performance and fluid experiences.</Typography>
                     <div className="flex justify-end">
                         <Link to="/bio">See more →</Link>
                     </div>
@@ -33,11 +32,16 @@ export default function Home() {
                 <Section style={{gridArea: 'projects'}}>
                     <Typography variant="heading" size="sm" className="uppercase">Projects</Typography>
                     <div style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
-                        <Link to="/project/project-1" variant="button">Project #01</Link>
-                        <Link to="/project/project-2" variant="button">Project #02</Link>
-                        <Link to="/project/project-3" variant="button">Project #03</Link>
-                        <Link to="/project/project-4" variant="button">Project #04</Link>
-                        <Link to="/project/project-5" variant="button">Project #05</Link>
+                        <Link to="/project/project-1" variant="button">Project
+                            #01</Link>
+                        <Link to="/project/project-2" variant="button">Project
+                            #02</Link>
+                        <Link to="/project/project-3" variant="button">Project
+                            #03</Link>
+                        <Link to="/project/project-4" variant="button">Project
+                            #04</Link>
+                        <Link to="/project/project-5" variant="button">Project
+                            #05</Link>
                     </div>
                 </Section>
 

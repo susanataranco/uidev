@@ -44,7 +44,8 @@ export const sciFiFrame = (color: ColorSet, borderWidth = 1) => css`
         box-shadow: inset 0 0 18px -8px ${color.glow};
     }
 
-    &:hover::after {
+    &:hover::after,
+    &:focus-visible::after {
         box-shadow: inset 0 0 26px -4px ${color.glow};
     }
 
@@ -59,7 +60,8 @@ export const sciFiFrame = (color: ColorSet, borderWidth = 1) => css`
             box-shadow: inset 0 0 18px -8px ${color.dim};
         }
 
-        &:hover::after {
+        &:hover::after,
+        &:focus-visible::after {
             box-shadow: inset 0 0 26px -4px ${color.glow};
         }
     }

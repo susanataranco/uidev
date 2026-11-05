@@ -34,7 +34,9 @@ function startEngine() {
 
 export function useCursorTracker(onMove: CursorListener) {
     const callbackRef = useRef(onMove)
-    callbackRef.current = onMove
+    useEffect(() => {
+        callbackRef.current = onMove
+    })
 
     useEffect(() => {
         startEngine()

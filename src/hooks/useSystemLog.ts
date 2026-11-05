@@ -26,9 +26,11 @@ function getSnapshot() {
     return entries;
 }
 
+let nextId = 0
+
 export function pushSystemLog(message: string) {
     const entry: SystemLogEntry = {
-        id: Date.now(),
+        id: nextId++,
         timestamp: new Date().toLocaleTimeString("es-ES", {
             hour12: false,
         }),

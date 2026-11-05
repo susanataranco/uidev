@@ -1,14 +1,16 @@
 import styled, {type DefaultTheme} from 'styled-components'
 import useSound from "use-sound";
-import type {ButtonHTMLAttributes, MouseEvent} from "react";
+import {type ButtonHTMLAttributes, type MouseEvent, useRef} from "react";
 import {cornerCutShape, sciFiFrame} from "../theme/sciFi.ts";
 
 interface BoolButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     active: boolean
     color?: keyof DefaultTheme["colors"]["semantic"]
+    onRegister?: (element: HTMLButtonElement | null) => void
 }
 
-export function BoolButton({active, onClick, color = "accent", ...rest}: BoolButtonProps) {
+export function BoolButton({active, onClick, onRegister, color = "accent", ...rest}: BoolButtonProps) {
+    const boolButtonRef = useRef<HTMLButtonElement>(null);
     const [play] = useSound('/sounds/click.mp3', {html5: true, volume: 0.2});
     const [hover] = useSound('/sounds/hover.mp3', {html5: true, volume: 0.2});
 
@@ -30,6 +32,10 @@ export function BoolButton({active, onClick, color = "accent", ...rest}: BoolBut
             onMouseEnter={handleMouseEnter}
             $color={color}
             className={active ? "" : "inactive"}
+            ref={(el) => {
+                boolButtonRef.current = el
+                onRegister?.(el)
+            }}
             {...rest}
         />
     )
@@ -50,4 +56,7 @@ const StyledBoolButton = styled.button<{ $active: boolean; $color: keyof Default
     cursor: none;
 
     ${({theme, $color}) => sciFiFrame(theme.colors.semantic[$color])}
+    &:focus-visible {
+        outline: none;
+    }
 `

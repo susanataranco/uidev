@@ -6,9 +6,17 @@ interface ZoomControlsProps {
     onZoomIn: () => void
     onZoomOut: () => void
     onReset: () => void
+
+    onRegisterZoomOut?: (el: HTMLElement | null) => void
+    onRegisterReset?: (el: HTMLElement | null) => void
+    onRegisterZoomIn?: (el: HTMLElement | null) => void
 }
 
-export function ZoomControls({onZoomIn, onZoomOut, onReset}: ZoomControlsProps) {
+export function ZoomControls({
+                                 onZoomIn,
+                                 onZoomOut,
+                                 onReset
+                             }: ZoomControlsProps) {
     return (
         <Wrapper>
             <Button onClick={onZoomOut} aria-label="Zoom out">

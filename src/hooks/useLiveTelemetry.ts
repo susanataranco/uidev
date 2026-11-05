@@ -152,8 +152,6 @@ function startEngine() {
         });
     });
 
-    let cellVisits = new Array(GRID_COLS * GRID_ROWS).fill(0)
-
     let frames = 0
     let lastFpsCheck = performance.now()
     let rafId: number
@@ -241,7 +239,7 @@ function startEngine() {
             setState({
                 user: {
                     exploredCells: 0,
-                    cellHeat: [...cellVisits],
+                    cellHeat: [...cellHeat],
                     currentCell: null
                 },
             });

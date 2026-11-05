@@ -2,16 +2,26 @@ import styled, {css} from 'styled-components'
 import type {DefaultTheme} from 'styled-components'
 import {Link as RouterLink, type LinkProps} from 'react-router-dom'
 import {useSceneNavigate} from '../hooks/useSceneNavigate.ts'
-import type {MouseEvent} from 'react'
+import {type MouseEvent, useRef} from 'react'
 import useSound from "use-sound";
 import {cornerCutShape, sciFiFrame} from "../theme/sciFi.ts"
 
 interface CustomLinkProps extends LinkProps {
     variant?: "button" | "text"
     color?: keyof DefaultTheme["colors"]["semantic"]
+    onRegister?: (element: HTMLAnchorElement | null) => void
 }
 
-export function Link({to, onClick, variant = "text", color = "accent", ...rest}: CustomLinkProps) {
+export function Link({
+                         to,
+                         onClick,
+                         onRegister,
+                         variant = "text",
+                         color = "accent",
+                         children,
+                         ...rest
+                     }: CustomLinkProps) {
+    const linkRef = useRef<HTMLAnchorElement>(null);
     const [play] = useSound('/sounds/click.mp3', {html5: true, volume: 0.2});
     const [hover] = useSound('/sounds/hover.mp3', {html5: true, volume: 0.2});
     const sceneNavigate = useSceneNavigate()
@@ -27,8 +37,17 @@ export function Link({to, onClick, variant = "text", color = "accent", ...rest}:
         hover()
     }
 
-    return <StyledLink to={to} onClick={handleClick} $variant={variant} $color={color}
-                       onMouseEnter={handleMouseEnter} {...rest} />
+    return (
+        <StyledLink ref={(el) => {
+            linkRef.current = el
+            onRegister?.(el)
+        }} to={to} onClick={handleClick} $variant={variant} $color={color}
+                    onMouseEnter={handleMouseEnter} {...rest}>
+            <div style={{position: "relative", width: "100%", textAlign: "center"}}>
+                {children}
+            </div>
+        </StyledLink>
+    )
 }
 
 const StyledLink = styled(RouterLink)<{
@@ -55,8 +74,10 @@ const StyledLink = styled(RouterLink)<{
 
         ${sciFiFrame(theme.colors.semantic[$color])}
     `}
-    &:hover {
-        color: ${({theme, $color}) => theme.colors.semantic[$color].base};
+    &:hover,
+    &:focus-visible {
+        outline: none;
+        color: ${({theme, $color}) => theme.colors.semantic[$color].glow};
         text-shadow: 0 0 8px ${({theme, $color}) => theme.colors.semantic[$color].glow};
     }
 

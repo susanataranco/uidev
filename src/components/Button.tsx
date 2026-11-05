@@ -1,6 +1,6 @@
 import styled, {css} from 'styled-components'
 import type {DefaultTheme} from 'styled-components'
-import type {MouseEvent, ReactNode} from 'react'
+import {type MouseEvent, type ReactNode, useRef} from 'react'
 import useSound from "use-sound"
 import {cornerCutShape, sciFiFrame} from "../theme/sciFi.ts"
 
@@ -12,18 +12,22 @@ interface CustomButtonProps {
     onClick?: (e: MouseEvent<HTMLButtonElement>) => void
     className?: string
     children?: ReactNode
+    onRegister?: (element: HTMLButtonElement | null) => void
 }
 
 export function Button({
                            onClick,
+                           onRegister,
                            variant = "button",
                            color = "accent",
                            className,
                            children,
                            ...rest
                        }: CustomButtonProps) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [play] = useSound('/sounds/click.mp3', {html5: true, volume: 0.2})
     const [hover] = useSound('/sounds/hover.mp3', {html5: true, volume: 0.2})
+
 
     function handleClick(e: MouseEvent<HTMLButtonElement>) {
         e.preventDefault()
@@ -33,6 +37,10 @@ export function Button({
 
     return (
         <StyledButton
+            ref={(el) => {
+                buttonRef.current = el
+                onRegister?.(el)
+            }}
             className={className}
             onClick={handleClick}
             onMouseEnter={() => hover()}
@@ -65,4 +73,7 @@ const StyledButton = styled.button<{ $variant: "button" | "text"; $color: Button
         ${cornerCutShape(8)}
         ${sciFiFrame(theme.colors.semantic[$color])}
     `}
+    &:focus-visible {
+        outline: none;
+    }
 `
